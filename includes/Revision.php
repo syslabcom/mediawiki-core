@@ -455,7 +455,7 @@ class Revision implements IDBAccessObject {
 	 * @return array
 	 */
 	public static function selectUserFields() {
-		return array( 'user_name' );
+		return array( 'user_name', 'user_real_name' );
 	}
 
 	/**
@@ -551,9 +551,9 @@ class Revision implements IDBAccessObject {
 			if ( $this->mUser == 0 ) {
 				$this->mUserText = $row->rev_user_text; // IP user
 			} elseif ( isset( $row->user_name ) ) {
-				$this->mUserText = $row->user_name; // logged-in user
+				$this->mUserText = $row->user_real_name; // nickname
 			}
-			$this->mOrigUserText = $row->rev_user_text;
+			$this->mOrigUserText = $row->user_real_name;
 		} elseif( is_array( $row ) ) {
 			// Build a new revision to be saved...
 			global $wgUser; // ugh
