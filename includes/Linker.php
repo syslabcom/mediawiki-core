@@ -1085,7 +1085,7 @@ class Linker {
 				$altUserName = IP::prettifyIP( $userName );
 			}
 		} else {
-			$page = Title::makeTitle( NS_USER, $userName );
+			$page = Title::makeTitle( NS_USER, $userId );
 		}
 
 		return self::link(
