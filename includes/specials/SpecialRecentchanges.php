@@ -367,7 +367,7 @@ class SpecialRecentChanges extends IncludableSpecialPage {
 	 * @return bool|ResultWrapper result or false (for Recentchangeslinked only)
 	 */
 	public function doMainQuery( $conds, $opts ) {
-		$tables = array( 'recentchanges' );
+		$tables = array( 'recentchanges', 'user' );
 		$join_conds = array();
 		$query_options = array(
 			'USE INDEX' => array( 'recentchanges' => 'rc_timestamp' )
@@ -397,6 +397,8 @@ class SpecialRecentChanges extends IncludableSpecialPage {
 			$fields[] = 'page_latest';
 			$join_conds['page'] = array( 'LEFT JOIN', 'rc_cur_id=page_id' );
 		}
+		$fields[] = 'user_real_name';
+		$join_conds['user'] = array( 'LEFT JOIN', 'rc_user=user_id' );
 		// Tag stuff.
 		ChangeTags::modifyDisplayQuery(
 			$tables,
