@@ -80,7 +80,7 @@ class UsersPager extends AlphabeticPager {
 	 * @return string
 	 */
 	function getIndexField() {
-		return $this->creationSort ? 'user_id' : 'user_name';
+		return $this->creationSort ? 'user_id' : 'user_real_name';
 	}
 
 	/**
