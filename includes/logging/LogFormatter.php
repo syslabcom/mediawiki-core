@@ -624,13 +624,13 @@ class LogFormatter {
 		} else {
 			$element = Linker::userLink(
 				$user->getId(),
-				$user->getName()
+				$user->mRealName
 			);
 
 			if ( $this->linkFlood ) {
 				$element .= Linker::userToolLinksRedContribs(
 					$user->getId(),
-					$user->getName(),
+					$user->mRealName,
 					$user->getEditCount()
 				);
 			}
