@@ -87,7 +87,7 @@ class ActiveUsersPager extends UsersPager {
 	}
 
 	function getIndexField() {
-		return 'rc_user_text';
+		return 'user_real_name';
 	}
 
 	function getQueryInfo() {
@@ -105,9 +105,9 @@ class ActiveUsersPager extends UsersPager {
 		}
 
 		return array(
-			'tables' => array( 'recentchanges', 'ipblocks' ),
+			'tables' => array( 'recentchanges', 'ipblocks', 'user' ),
 			'fields' => array(
-				'user_name' => 'rc_user_text', // for Pager inheritance
+				'user_name' => 'user_real_name', // for Pager inheritance
 				'rc_user_text', // for Pager
 				'user_id' => 'rc_user',
 				'recentedits' => 'COUNT(*)',
@@ -122,6 +122,7 @@ class ActiveUsersPager extends UsersPager {
 					'rc_user=ipb_user',
 					'ipb_auto' => 0 # avoid duplicate blocks
 				)),
+				'user' => array( 'LEFT JOIN', array( 'user_id=rc_user' ))
 			),
 			'conds' => $conds
 		);
