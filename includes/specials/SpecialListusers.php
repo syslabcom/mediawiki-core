@@ -118,6 +118,7 @@ class UsersPager extends AlphabeticPager {
 		$query = array(
 			'tables' => array( 'user', 'user_groups', 'ipblocks' ),
 			'fields' => array(
+				'user_real_name' => 'user_real_name',
 				'user_name' => $this->creationSort ? 'MAX(user_name)' : 'user_name',
 				'user_id' => $this->creationSort ? 'user_id' : 'MAX(user_id)',
 				'edits' => 'MAX(user_editcount)',
@@ -150,7 +151,7 @@ class UsersPager extends AlphabeticPager {
 			return '';
 		}
 
-		$userName = $row->user_name;
+		$userName = $row->user_real_name;
 
 		$ulinks = Linker::userLink( $row->user_id, $userName );
 		$ulinks .= Linker::userToolLinksRedContribs( $row->user_id, $userName, intval( $row->edits ) );
