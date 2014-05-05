@@ -127,7 +127,10 @@ class NewFilesPager extends ReverseChronologicalPager {
 		$user = User::newFromId( $row->img_user );
 
 		$title = Title::makeTitle( NS_FILE, $name );
-		$ul = Linker::link( $user->getUserpage(), $user->getName() );
+		$ul = Linker::link(
+			Title::makeTitle( NS_USER, $row->img_user ),
+			htmlspecialchars( $user->getRealName())
+		);
 
 		$this->gallery->add(
 			$title,
