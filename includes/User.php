@@ -3374,7 +3374,7 @@ class User {
 	 * @return Title: User's personal page title
 	 */
 	public function getUserPage() {
-		return Title::makeTitle( NS_USER, $this->getName() );
+		return Title::makeTitle( NS_USER, $this->getId() );
 	}
 
 	/**
