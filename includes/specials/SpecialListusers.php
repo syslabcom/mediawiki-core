@@ -154,7 +154,7 @@ class UsersPager extends AlphabeticPager {
 		$userName = $row->user_real_name;
 
 		$ulinks = Linker::userLink( $row->user_id, $userName );
-		$ulinks .= Linker::userToolLinksRedContribs( $row->user_id, $userName, intval( $row->edits ) );
+		$ulinks .= Linker::userToolLinksRedContribs( $row->user_id, $row->user_id, intval( $row->edits ) );
 
 		$lang = $this->getLanguage();
 
