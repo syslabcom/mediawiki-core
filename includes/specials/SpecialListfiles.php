@@ -488,9 +488,9 @@ class ImageListPager extends TablePager {
 				}
 			case 'img_user_text':
 				if ( $this->mCurrentRow->img_user ) {
-					$name = User::whoIs( $this->mCurrentRow->img_user );
+					$name = User::whoIsReal( $this->mCurrentRow->img_user )
 					$link = Linker::link(
-						Title::makeTitle( NS_USER, $name ),
+						Title::makeTitle( NS_USER, $this->mCurrentRow->img_user ),
 						htmlspecialchars( $name )
 					);
 				} else {

@@ -1253,7 +1253,8 @@ class ImageHistoryList extends ContextSource {
 		$timestamp = wfTimestamp( TS_MW, $file->getTimestamp() );
 		$img = $iscur ? $file->getName() : $file->getArchiveName();
 		$userId = $file->getUser( 'id' );
-		$userText = $file->getUser( 'text' );
+		$fileUser = User::newFromID( $userId );
+		$userText = $fileUser->getRealName();
 		$description = $file->getDescription( File::FOR_THIS_USER, $user );
 
 		$local = $this->current->isLocal();
@@ -1387,7 +1388,7 @@ class ImageHistoryList extends ContextSource {
 			if ( $local ) {
 				$row .= Linker::userLink( $userId, $userText );
 				$row .= '<span style="white-space: nowrap;">';
-				$row .= Linker::userToolLinks( $userId, $userText );
+				$row .= Linker::userToolLinks( $userId, $userId );
 				$row .= '</span>';
 			} else {
 				$row .= htmlspecialchars( $userText );

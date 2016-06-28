@@ -515,7 +515,7 @@ class LogFormatter {
 		$entry = $this->entry;
 		$params = $this->extractParameters();
 		$params[0] = Message::rawParam( $this->getPerformerElement() );
-		$params[1] = $this->canView( LogPage::DELETED_USER ) ? $entry->getPerformer()->getName() : '';
+		$params[1] = $this->canView( LogPage::DELETED_USER ) ? $entry->getPerformer()->getRealName() : '';
 		$params[2] = Message::rawParam( $this->makePageLink( $entry->getTarget() ) );
 
 		// Bad things happens if the numbers are not in correct order
@@ -572,7 +572,7 @@ class LogFormatter {
 				break;
 			case 'user':
 				$user = User::newFromName( $value );
-				$value = $user->getName();
+				$value = $user->getRealName();
 				break;
 			case 'user-link':
 				$this->setShowUserToolLinks( false );
@@ -700,17 +700,17 @@ class LogFormatter {
 
 	protected function makeUserLink( User $user, $toolFlags = 0 ) {
 		if ( $this->plaintext ) {
-			$element = $user->getName();
+			$element = $user->getRealName();
 		} else {
 			$element = Linker::userLink(
 				$user->getId(),
-				$user->getName()
+				$user->getRealName()
 			);
 
 			if ( $this->linkFlood ) {
 				$element .= Linker::userToolLinks(
 					$user->getId(),
-					$user->getName(),
+					$user->getRealName(),
 					true, // redContribsWhenNoEdits
 					$toolFlags,
 					$user->getEditCount()

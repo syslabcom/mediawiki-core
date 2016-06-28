@@ -851,7 +851,7 @@ class ContribsPager extends ReverseChronologicalPager {
 				);
 			}
 		} else {
-			$uid = User::idFromName( $this->target );
+			$uid = $this->target;
 			if ( $uid ) {
 				$condition['rev_user'] = $uid;
 				$index = 'user_timestamp';

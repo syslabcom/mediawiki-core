@@ -293,7 +293,7 @@ class SpecialNewpages extends IncludableSpecialPage {
 		$row = array(
 			'comment' => $result->rc_comment,
 			'deleted' => $result->rc_deleted,
-			'user_text' => $result->rc_user_text,
+			'user_text' => $result->user_real_name,
 			'user' => $result->rc_user,
 		);
 		$rev = new Revision( $row );
@@ -541,14 +541,17 @@ class NewPagesPager extends ReverseChronologicalPager {
 		}
 
 		// Allow changes to the New Pages query
-		$tables = array( 'recentchanges', 'page' );
+		$tables = array( 'recentchanges', 'page', 'user' );
 		$fields = array(
 			'rc_namespace', 'rc_title', 'rc_cur_id', 'rc_user', 'rc_user_text',
 			'rc_comment', 'rc_timestamp', 'rc_patrolled', 'rc_id', 'rc_deleted',
 			'length' => 'page_len', 'rev_id' => 'page_latest', 'rc_this_oldid',
-			'page_namespace', 'page_title'
+			'page_namespace', 'page_title', 'user_real_name'
 		);
-		$join_conds = array( 'page' => array( 'INNER JOIN', 'page_id=rc_cur_id' ) );
+        $join_conds = array(
+			'page' => array( 'INNER JOIN', 'page_id=rc_cur_id' ),
+			'user' => array( 'LEFT JOIN', 'rc_user=user_id')
+ 		);
 
 		Hooks::run( 'SpecialNewpagesConditions',
 			array( &$this, $this->opts, &$conds, &$tables, &$fields, &$join_conds ) );

@@ -890,7 +890,7 @@ abstract class ContentHandler {
 
 		// Find out if there was only one contributor
 		// Only scan the last 20 revisions
-		$res = $dbw->select( 'revision', 'rev_user_text',
+		$res = $dbw->select( 'revision', 'rev_user',
 			array(
 				'rev_page' => $title->getArticleID(),
 				$dbw->bitAnd( 'rev_deleted', Revision::DELETED_USER ) . ' = 0'
@@ -908,10 +908,10 @@ abstract class ContentHandler {
 		$row = $dbw->fetchObject( $res );
 
 		if ( $row ) { // $row is false if the only contributor is hidden
-			$onlyAuthor = $row->rev_user_text;
+			$onlyAuthor = $row->rev_user;
 			// Try to find a second contributor
 			foreach ( $res as $row ) {
-				if ( $row->rev_user_text != $onlyAuthor ) { // Bug 22999
+				if ( $row->rev_user != $onlyAuthor ) { // Bug 22999
 					$onlyAuthor = false;
 					break;
 				}

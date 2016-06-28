@@ -101,7 +101,7 @@ class ActiveUsersPager extends UsersPager {
 			'qcc_type' => 'activeusers',
 			'qcc_namespace' => NS_USER,
 			'user_name = qcc_title',
-			'rc_user_text = qcc_title',
+			'user_real_name = qcc_title',
 			'rc_type != ' . $dbr->addQuotes( RC_EXTERNAL ), // Don't count wikidata.
 			'rc_log_type IS NULL OR rc_log_type != ' . $dbr->addQuotes( 'newusers' ),
 			'rc_timestamp >= ' . $dbr->addQuotes( $timestamp ),

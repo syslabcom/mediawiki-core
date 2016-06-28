@@ -199,7 +199,7 @@ class SpecialRecentChanges extends ChangesListSpecialPage {
 		$dbr = $this->getDB();
 		$user = $this->getUser();
 
-		$tables = array( 'recentchanges' );
+		$tables = array( 'recentchanges', 'user' );
 		$fields = RecentChange::selectFields();
 		$query_options = array();
 		$join_conds = array();
@@ -221,6 +221,8 @@ class SpecialRecentChanges extends ChangesListSpecialPage {
 			$fields[] = 'page_latest';
 			$join_conds['page'] = array( 'LEFT JOIN', 'rc_cur_id=page_id' );
 		}
+		$fields[] = 'user_real_name';
+		$join_conds['user'] = array( 'LEFT JOIN', 'rc_user=user_id' );
 
 		ChangeTags::modifyDisplayQuery(
 			$tables,
