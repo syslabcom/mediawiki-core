@@ -422,8 +422,8 @@ class ChangesList extends ContextSource {
 				$this->msg( 'rev-deleted-user' )->escaped() . '</span>';
 		} else {
 			$s .= $this->getLanguage()->getDirMark() . Linker::userLink( $rc->mAttribs['rc_user'],
-				$rc->mAttribs['rc_user_text'] );
-			$s .= Linker::userToolLinks( $rc->mAttribs['rc_user'], $rc->mAttribs['rc_user_text'] );
+				$rc->mAttribs['user_real_name'] );
+			$s .= Linker::userToolLinks( $rc->mAttribs['rc_user'], $rc->mAttribs['user_real_name'] );
 		}
 	}
 
