@@ -1097,19 +1097,22 @@ class Linker {
 	public static function userLink( $userId, $userName, $altUserName = false ) {
 		$classes = 'mw-userlink';
 		if ( $userId == 0 ) {
+			$userRealName = $userName;
 			$page = SpecialPage::getTitleFor( 'Contributions', $userName );
 			if ( $altUserName === false ) {
 				$altUserName = IP::prettifyIP( $userName );
 			}
 			$classes .= ' mw-anonuserlink'; // Separate link class for anons (bug 43179)
 		} else {
-			$page = Title::makeTitle( NS_USER, $userName );
+			$user = User::newFromId( $userId );
+			$userRealName = $user->getRealName();
+			$page = Title::makeTitle( NS_USER, $userId );
 		}
 
 		return self::link(
 			$page,
-			htmlspecialchars( $altUserName !== false ? $altUserName : $userName ),
-			array( 'class' => $classes )
+			htmlspecialchars( $altUserName !== false ? $altUserName : $userRealName ),
+			array( 'class' => $classes, 'title' => $userRealName )
 		);
 	}
 
